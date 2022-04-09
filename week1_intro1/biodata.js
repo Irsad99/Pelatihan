@@ -7,7 +7,7 @@ const Biodata = {
         nameSchool : "SMA NEGERI 1 WARU PAMEKASAN",
         yearIn : 2014,
         yearOut : 2017,
-        major : "MIPA"
+        major : "Matematika dan Ilmu Pengetahuan Alam"
     },{
         nameSchool : "Universitas Trunojoyo Madura",
         yearIn : 2017,
