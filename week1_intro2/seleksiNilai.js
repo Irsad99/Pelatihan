@@ -27,9 +27,3 @@ const seleksiNilai = (nilaiAwal, nilaiAkhir, dataArray) => {
 
 const output = seleksiNilai(5,20,[2,25,4,14,17,30,8])
 console.log(output);
-
-
-
-
-
-
