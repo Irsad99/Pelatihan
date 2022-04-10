@@ -16,14 +16,12 @@ const lowerName = (arrName) => {
 const searchName = (str, limit, callbackFN) => {
     const text = callbackFN(Name)
     let temp = []
-    let ind = 0
     if (!str || typeof str === "number") {
         return ("Isian tidak boleh kosong dan number");
     } else {
         for (let index = 0; index <= text.length - 1 ; index++) {
             if (text[index].includes(str) && temp.length < limit) {
-                temp[ind] = Name[index]
-                ind += 1
+                temp.push(Name[index])
             } else if (temp.length == 0 && index == text.length - 1) {
                 return ("Yang anda cari tidak ditemukan")
             } else {

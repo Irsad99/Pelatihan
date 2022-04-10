@@ -1,6 +1,5 @@
 const seleksiNilai = (nilaiAwal, nilaiAkhir, dataArray) => {
     let temp = []
-    let ind = 0
     const sortArray = dataArray.sort((a,b) => {return a-b}) // Sorting Data
     if (typeof nilaiAwal === "string" || typeof nilaiAkhir === "string") {
         return ("Nilai tidak boleh text")
@@ -14,8 +13,7 @@ const seleksiNilai = (nilaiAwal, nilaiAkhir, dataArray) => {
                 return ("Nilai tidak ditemukan")
             } else {
                 if (sortArray[index] >= nilaiAwal && sortArray[index] <= nilaiAkhir) {
-                    temp[ind] = sortArray[index]
-                    ind += 1
+                    temp.push(sortArray[index])
                 } else {
                     continue
                 }
