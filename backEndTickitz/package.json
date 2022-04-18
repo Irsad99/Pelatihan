@@ -1,0 +1,26 @@
+{
+  "name": "backendtickitz",
+  "version": "1.0.0",
+  "description": "Backend Tickitz",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Hello World\"",
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "postgresql"
+  ],
+  "author": "Irsad",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0"
+  }
+}
