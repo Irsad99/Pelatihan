@@ -1,9 +1,12 @@
 const db = require('../configs/db')
 const models = {}
 
-models.getData = () => {
+models.getData = (limit, offset) => {
     return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM tickitz.schedule ORDER BY schedule_id ASC')
+        db.query('SELECT * FROM tickitz.schedule ORDER BY schedule_id ASC limit $1 offset $2', [
+            limit,
+            offset
+        ])
             .then((data) => {
                 resolve(data.rows)
             })
@@ -14,7 +17,7 @@ models.getData = () => {
     })
 }
 
-models.addData = ({ id, price, premiere, location, date_start, date_end, time }) => {
+models.addData = (id, price, premiere, location, date_start, date_end, time) => {
     return new Promise((resolve, reject) => {
         db.query('INSERT INTO tickitz.schedule (id_movie, price, premiere, location, date_start, date_end, time) VALUES($1, $2, $3, $4, $5, $6, $7)',
         [
@@ -29,7 +32,7 @@ models.addData = ({ id, price, premiere, location, date_start, date_end, time })
     })
 }
 
-models.deleteData = ({id}) => {
+models.deleteData = (id) => {
     return new Promise((resolve, reject) => {
         db.query('DELETE FROM tickitz.schedule WHERE schedule_id = $1', [
             id
@@ -43,7 +46,7 @@ models.deleteData = ({id}) => {
     })
 }
 
-models.updateData = ({ id, price}) => {
+models.updateData = (id, price) => {
     return new Promise((resolve, reject) => {
         db.query('UPDATE tickitz.schedule SET "price"= $2 WHERE schedule_id= $1', [
             id,

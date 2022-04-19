@@ -4,7 +4,9 @@ const movies = {}
 
 movies.GetAll = async (req, res) => {
     try {
-        const data = await models.getData()
+        const limit = req.query.limit || 2
+        const skipValue = req.query.skip || 0
+        const data = await models.getData(limit, skipValue)
         return response(res, 200, data)
     } catch (error) {
         return response(res, 500, error)
@@ -42,7 +44,7 @@ movies.SortByRelease = async (req, res) => {
 movies.Create = async (req, res) => {
     try {
         const { name, category, director, casts, release, hour, minute, synopsis } = req.body
-        const data = await models.addData({ name, category, director, casts, release, hour, minute, synopsis })
+        const data = await models.addData(name, category, director, casts, release, hour, minute, synopsis)
         return response(res, 200, data)
     } catch (error) {
         return response(res, 500, error)
@@ -52,7 +54,7 @@ movies.Create = async (req, res) => {
 movies.Delete = async (req,res) => {
     try {
         const {id} = req.body
-        const data = await models.deleteData({ id })
+        const data = await models.deleteData(id)
         return response(res, 200, data)
     } catch (error) {
         return response(res, 500, error)
@@ -62,7 +64,7 @@ movies.Delete = async (req,res) => {
 movies.Update = async (req,res) => {
     try {
         const {id, name, release} = req.body
-        const data = await models.updateData({ id, name, release })
+        const data = await models.updateData(id, name, release)
         return response(res, 200, data)
     } catch (error) {
         return response(res, 500, error)

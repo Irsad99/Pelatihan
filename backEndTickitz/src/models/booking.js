@@ -1,9 +1,12 @@
 const db = require('../configs/db')
 const models = {}
 
-models.getData = () => {
+models.getData = (limit, offset) => {
     return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM tickitz.booking ORDER BY booking_id ASC')
+        db.query('SELECT * FROM tickitz.booking ORDER BY booking_id ASC limit $1 offset $2', [
+            limit,
+            offset
+        ])
             .then((data) => {
                 resolve(data.rows)
             })

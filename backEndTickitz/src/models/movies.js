@@ -15,9 +15,12 @@ models.getByName = (name) => {
     })
 }
 
-models.getData = () => {
+models.getData = (limit, skip) => {
     return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM tickitz.movies ORDER BY movie_id ASC')
+        db.query('SELECT * FROM tickitz.movies ORDER BY movie_id ASC limit $1 offset $2', [
+            limit,
+            skip
+        ])
             .then((data) => {
                 resolve(data.rows)
             })
@@ -54,7 +57,7 @@ models.sortByRelease = () => {
     })
 }
 
-models.addData = ({ name, category, director, casts, release, hour, minute, synopsis }) => {
+models.addData = (name, category, director, casts, release, hour, minute, synopsis) => {
     return new Promise((resolve, reject) => {
         db.query('INSERT INTO tickitz.movies (movie_name, category, director, casts, release_date, duration_hour, duration_minute, synopsis) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
          [
@@ -76,9 +79,9 @@ models.addData = ({ name, category, director, casts, release, hour, minute, syno
     })
 }
 
-models.deleteData = ({id}) => {
+models.deleteData = (id) => {
     return new Promise((resolve, reject) => {
-        db.query('DELETE FROM tickitz.movies WHERE movie_id= %$1', [
+        db.query('DELETE FROM tickitz.movies WHERE movie_id= $1', [
             id
         ])
             .then(() => {
@@ -90,7 +93,7 @@ models.deleteData = ({id}) => {
     })
 }
 
-models.updateData = ({ id, name, release}) => {
+models.updateData = (id, name, release) => {
     return new Promise((resolve, reject) => {
         db.query('UPDATE tickitz.movies SET movie_name= $2, release_date= $3 WHERE movie_id= $1', [
             id,

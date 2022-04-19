@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const paginate = require('express-paginate')
 const route = require('./src/routers')
 const db = require('./src/configs/db')
 const cors = require('cors')
@@ -11,6 +12,7 @@ server.use(express.urlencoded({ extended: false }))
 server.use(express.json())
 server.use(cors())
 server.use('/api/v1', route)
+server.use(paginate.middleware(1, 10));
 
 db.connect()
     .then(() => {

@@ -4,7 +4,9 @@ const schedules = {}
 
 schedules.getAll = async (req, res) => {
     try {
-        const data = await models.getData()
+        const limit = req.query.limit || 2
+        const offset = req.query.skip || 0
+        const data = await models.getData(limit, offset)
         return response(res, 200, data)
     } catch (error) {
         return response(res, 500, error)
