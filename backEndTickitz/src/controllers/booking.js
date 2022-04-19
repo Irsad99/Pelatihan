@@ -1,8 +1,8 @@
 const models = require('../models/booking')
 const response = require('../helpers/response')
-const schedules = {}
+const booking = {}
 
-schedules.getAll = async (req, res) => {
+booking.getAll = async (req, res) => {
     try {
         const limit = req.query.limit || 2
         const offset = req.query.skip || 0
@@ -13,7 +13,7 @@ schedules.getAll = async (req, res) => {
     }
 }
 
-schedules.Create = async (req, res) => {
+booking.Create = async (req, res) => {
     try {
         const { date, time, total_cost, name_card, card_number, id_movie, id_schedule, id_user, seats } = req.body
         const data = await models.addData(date, time, total_cost, name_card, card_number, id_movie, id_schedule, id_user, seats)
@@ -23,7 +23,7 @@ schedules.Create = async (req, res) => {
     }
 }
 
-schedules.Delete = async (req,res) => {
+booking.Delete = async (req,res) => {
     try {
         const {id} = req.body
         const data = await models.deleteData(id)
@@ -33,7 +33,7 @@ schedules.Delete = async (req,res) => {
     }
 }
 
-schedules.Update = async (req,res) => {
+booking.Update = async (req,res) => {
     try {
         const {id, name_card, card_number} = req.body
         const data = await models.updateData(id, name_card, card_number)
@@ -43,4 +43,4 @@ schedules.Update = async (req,res) => {
     }
 }
 
-module.exports = schedules
+module.exports = booking
