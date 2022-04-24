@@ -14,6 +14,9 @@ function response(res, status, result = '') {
     case 401:
         desc = 'Unauthorized';
         break;
+    case 404:
+        desc = 'Data Not Found';
+        break;
     case 500:
         desc = 'Internal Server Error';
         break;
