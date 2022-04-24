@@ -1,5 +1,5 @@
-const db = require('../configs/db')
-const models = {}
+const db = require('../configs/db');
+const models = {};
 
 models.getData = (limit, offset) => {
     return new Promise((resolve, reject) => {
@@ -8,29 +8,29 @@ models.getData = (limit, offset) => {
             offset
         ])
             .then((data) => {
-                resolve(data.rows)
+                resolve(data.rows);
             })
             .catch((ers) => {
-                console.log(ers)
-                reject(ers)
-            })
-    })
-}
+                console.log(ers);
+                reject(ers);
+            });
+    });
+};
 
 models.addData = (id, price, premiere, location, date_start, date_end, time) => {
     return new Promise((resolve, reject) => {
         db.query('INSERT INTO tickitz.schedule (id_movie, price, premiere, location, date_start, date_end, time) VALUES($1, $2, $3, $4, $5, $6, $7)',
-        [
-            id, price, premiere, location, date_start, date_end, time
-        ])
+            [
+                id, price, premiere, location, date_start, date_end, time
+            ])
             .then(() => {
-                resolve('Data Successfully Saved')
+                resolve('Data Successfully Saved');
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
 models.deleteData = (id) => {
     return new Promise((resolve, reject) => {
@@ -38,13 +38,13 @@ models.deleteData = (id) => {
             id
         ])
             .then(() => {
-                resolve('Data Successfully Deleted')
+                resolve('Data Successfully Deleted');
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
 models.updateData = (id, price) => {
     return new Promise((resolve, reject) => {
@@ -53,12 +53,12 @@ models.updateData = (id, price) => {
             price,
         ])
             .then(() => {
-                resolve('Data Successfully Updated')
+                resolve('Data Successfully Updated');
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
-module.exports = models
+module.exports = models;

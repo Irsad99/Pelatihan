@@ -1,27 +1,27 @@
-require('dotenv').config()
-const express = require('express')
-const paginate = require('express-paginate')
-const route = require('./src/routers')
-const db = require('./src/configs/db')
-const cors = require('cors')
+require('dotenv').config();
+const express = require('express');
+const paginate = require('express-paginate');
+const route = require('./src/routers');
+const db = require('./src/configs/db');
+const cors = require('cors');
 
-const server = express()
-const PORT = 8080
+const server = express();
+const PORT = 8080;
 
-server.use(express.urlencoded({ extended: false }))
-server.use(express.json())
-server.use(cors())
-server.use('/api/v1', route)
+server.use(express.urlencoded({ extended: false }));
+server.use(express.json());
+server.use(cors());
+server.use('/api/v1', route);
 server.use(paginate.middleware(1, 10));
 
 db.connect()
     .then(() => {
-        console.log('Database connected')
+        console.log('Database connected');
 
         server.listen(PORT, () => {
-            console.log(`Service run on port ${PORT}`)
-        })
+            console.log(`Service run on port ${PORT}`);
+        });
     })
     .catch((er) => {
-        console.log(er)
-    })
+        console.log(er);
+    });

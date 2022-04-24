@@ -1,5 +1,5 @@
-const { Pool } = require('pg')
-const process = require('process')
+const { Pool } = require('pg');
+const process = require('process');
 
 const pool = new Pool({
     user: process.env.DB_NAME,
@@ -7,6 +7,6 @@ const pool = new Pool({
     database: process.env.DB_NAME,
     password: process.env.DB_PASS,
     port: 5432
-})
+});
 
-module.exports = pool
+module.exports = pool;

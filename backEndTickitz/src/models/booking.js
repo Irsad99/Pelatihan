@@ -1,5 +1,5 @@
-const db = require('../configs/db')
-const models = {}
+const db = require('../configs/db');
+const models = {};
 
 models.getData = (limit, offset) => {
     return new Promise((resolve, reject) => {
@@ -8,37 +8,37 @@ models.getData = (limit, offset) => {
             offset
         ])
             .then((data) => {
-                resolve(data.rows)
+                resolve(data.rows);
             })
             .catch((ers) => {
-                console.log(ers)
-                reject(ers)
-            })
-    })
-}
+                console.log(ers);
+                reject(ers);
+            });
+    });
+};
 
 models.addData = (date, time, total_cost, name_card, card_number, id_movie, id_schedule, id_user, seats) => {
     return new Promise((resolve, reject) => {
         db.query('INSERT INTO tickitz.booking (date, time, total_cost, name_card, card_number, id_movie, id_schedule, id_user, seats) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-        [
-            date, 
-            time, 
-            total_cost, 
-            name_card, 
-            card_number, 
-            id_movie, 
-            id_schedule, 
-            id_user, 
-            seats
-        ])
+            [
+                date, 
+                time, 
+                total_cost, 
+                name_card, 
+                card_number, 
+                id_movie, 
+                id_schedule, 
+                id_user, 
+                seats
+            ])
             .then(() => {
-                resolve('Data Successfully Saved')
+                resolve('Data Successfully Saved');
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
 models.deleteData = (id) => {
     return new Promise((resolve, reject) => {
@@ -46,13 +46,13 @@ models.deleteData = (id) => {
             id
         ])
             .then(() => {
-                resolve('Data Successfully Deleted')
+                resolve('Data Successfully Deleted');
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
 models.updateData = (id, name_card, card_number) => {
     return new Promise((resolve, reject) => {
@@ -62,12 +62,12 @@ models.updateData = (id, name_card, card_number) => {
             card_number
         ])
             .then(() => {
-                resolve('Data Successfully Updated')
+                resolve('Data Successfully Updated');
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
-module.exports = models
+module.exports = models;

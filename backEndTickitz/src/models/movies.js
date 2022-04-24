@@ -1,5 +1,5 @@
-const db = require('../configs/db')
-const models = {}
+const db = require('../configs/db');
+const models = {};
 
 models.getByName = (name) => {
     return new Promise((resolve, reject) => {
@@ -7,13 +7,13 @@ models.getByName = (name) => {
             name
         ])
             .then((data) => {
-                resolve(data.rows)
+                resolve(data.rows);
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
 models.getData = (limit, skip) => {
     return new Promise((resolve, reject) => {
@@ -22,76 +22,76 @@ models.getData = (limit, skip) => {
             skip
         ])
             .then((data) => {
-                resolve(data.rows)
+                resolve(data.rows);
             })
             .catch((ers) => {
-                console.log(ers)
-                reject(ers)
-            })
-    })
-}
+                console.log(ers);
+                reject(ers);
+            });
+    });
+};
 
 models.sortByName = () => {
     return new Promise((resolve, reject) => {
         db.query('SELECT * FROM tickitz.movies ORDER BY movie_name ASC')
             .then((data) => {
-                resolve(data.rows)
+                resolve(data.rows);
             })
             .catch((ers) => {
-                console.log(ers)
-                reject(ers)
-            })
-    })
-}
+                console.log(ers);
+                reject(ers);
+            });
+    });
+};
 
 models.sortByRelease = () => {
     return new Promise((resolve, reject) => {
         db.query('SELECT * FROM tickitz.movies ORDER BY release_date ASC')
             .then((data) => {
-                resolve(data.rows)
+                resolve(data.rows);
             })
             .catch((ers) => {
-                console.log(ers)
-                reject(ers)
-            })
-    })
-}
+                console.log(ers);
+                reject(ers);
+            });
+    });
+};
 
 models.addData = (name, category, director, casts, release, hour, minute, synopsis) => {
     return new Promise((resolve, reject) => {
         db.query('INSERT INTO tickitz.movies (movie_name, category, director, casts, release_date, duration_hour, duration_minute, synopsis) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
-         [
-            name, 
-            category, 
-            director, 
-            casts, 
-            release, 
-            hour, 
-            minute, 
-            synopsis
-        ])
+            [
+                name, 
+                category, 
+                director, 
+                casts, 
+                release, 
+                hour, 
+                minute, 
+                synopsis
+            ])
             .then(() => {
-                resolve('Data Successfully Saved')
+                resolve('Data Successfully Saved');
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
 models.deleteData = (id) => {
     return new Promise((resolve, reject) => {
         db.query('DELETE FROM tickitz.movies WHERE movie_id= $1', [
             id
         ])
-            .then(() => {
-                resolve('Data Successfully Deleted')
+            .then(() => { 
+                resolve('Data Successfully Deleted');
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
 models.updateData = (id, name, release) => {
     return new Promise((resolve, reject) => {
@@ -101,12 +101,12 @@ models.updateData = (id, name, release) => {
             release
         ])
             .then(() => {
-                resolve('Data Successfully Updated')
+                resolve('Data Successfully Updated');
             })
             .catch((ers) => {
-                reject(ers)
-            })
-    })
-}
+                reject(ers);
+            });
+    });
+};
 
-module.exports = models
+module.exports = models;
