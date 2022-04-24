@@ -4,10 +4,13 @@ const movies = {};
 
 movies.GetAll = async (req, res) => {
     try {
-        const limit = req.query.limit || 2;
-        const skipValue = req.query.skip || 0;
-        const data = await models.getData(limit, skipValue);
-        return response(res, 200, data);
+        const { page,limit } = req.query;
+        const data = await models.getData(page, limit);
+        if (!data.length) {
+            return response(res, 404, 'Sorry Data Was Not Found');
+        } else {
+            return response(res, 200, data);
+        }
     } catch (error) {
         return response(res, 500, error);
     }
@@ -15,9 +18,14 @@ movies.GetAll = async (req, res) => {
 
 movies.GetByName = async (req,res) => {
     try {
-        const name = req.body.name;
+        const name = req.params.name;
         const data = await models.getByName(name);
-        return response(res, 200, data);
+        if (!data.length) {
+            return response(res, 404, 'Sorry Data Was Not Found');
+        } else {
+            return response(res, 200, data);
+        }
+        
     } catch (error) {
         return response(res, 500, error);
     }
@@ -55,7 +63,12 @@ movies.Delete = async (req,res) => {
     try {
         const id = req.params.id;
         const data = await models.deleteData(id);
-        return response(res, 200, data);
+        if (data.rowCount < 1) {
+            return response(res, 404, 'Sorry Data Was Not Found');
+        } else {
+            return response(res, 200, data);
+        }
+        
     } catch (error) {
         return response(res, 500, error);
     }

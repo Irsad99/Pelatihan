@@ -15,11 +15,11 @@ models.getByName = (name) => {
     });
 };
 
-models.getData = (limit, skip) => {
+models.getData = (page, limit) => {
     return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM tickitz.movies ORDER BY movie_id ASC limit $1 offset $2', [
+        db.query('SELECT * FROM tickitz.movies ORDER BY movie_id ASC limit $1 offset (($2-1)*2)', [
             limit,
-            skip
+            page
         ])
             .then((data) => {
                 resolve(data.rows);
