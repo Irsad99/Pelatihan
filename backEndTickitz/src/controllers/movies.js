@@ -76,7 +76,8 @@ movies.Delete = async (req,res) => {
 
 movies.Update = async (req,res) => {
     try {
-        const {id, name, release} = req.body;
+        const {name, release} = req.body;
+        const id = req.params.id;
         const data = await models.updateData(id, name, release);
         return response(res, 200, data);
     } catch (error) {

@@ -8,6 +8,6 @@ routers.get('/sort/name', ctrl.SortByName);
 routers.get('/sort/release', ctrl.SortByRelease);
 routers.post('/', ctrl.Create);
 routers.delete('/:id', ctrl.Delete);
-routers.put('/', ctrl.Update);
+routers.put('/:id', ctrl.Update);
 
 module.exports = routers;
