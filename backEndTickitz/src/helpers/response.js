@@ -1,4 +1,4 @@
-function response(res, status, result = '') {
+function response(res, status, result = '', meta = '') {
     let desc = '';
 
     switch (status) {
@@ -39,6 +39,10 @@ function response(res, status, result = '') {
         description: desc,
         result: isObject(result) ? [result] : result
     };
+
+    if (meta) {
+        results.meta = meta;
+    }
 
     res.status(status).json(results);
 }

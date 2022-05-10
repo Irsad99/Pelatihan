@@ -4,10 +4,13 @@ const booking = {};
 
 booking.getAll = async (req, res) => {
     try {
-        const limit = req.query.limit || 2;
-        const offset = req.query.skip || 0;
-        const data = await models.getData(limit, offset);
-        return response(res, 200, data);
+        const query = {
+            page : req.query.page || 1,
+            limit : req.query.limit || 5,
+            order : req.query.order
+        };
+        const {data, meta} = await models.getData(query);
+        return response(res, 200, data, meta);
     } catch (error) {
         return response(res, 500, error);
     }
@@ -25,7 +28,7 @@ booking.Create = async (req, res) => {
 
 booking.Delete = async (req,res) => {
     try {
-        const {id} = req.body;
+        const id = req.params.id;
         const data = await models.deleteData(id);
         return response(res, 200, data);
     } catch (error) {
@@ -35,7 +38,8 @@ booking.Delete = async (req,res) => {
 
 booking.Update = async (req,res) => {
     try {
-        const {id, name_card, card_number} = req.body;
+        const id = req.params.id;
+        const {name_card, card_number} = req.body;
         const data = await models.updateData(id, name_card, card_number);
         return response(res, 200, data);
     } catch (error) {

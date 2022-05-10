@@ -1,20 +1,40 @@
 const db = require('../configs/db');
+const format = require('pg-format');
 const models = {};
 
-models.getData = (limit, offset) => {
-    return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM tickitz.schedule ORDER BY schedule_id ASC limit $1 offset $2', [
-            limit,
-            offset
-        ])
-            .then((data) => {
-                resolve(data.rows);
-            })
-            .catch((ers) => {
-                console.log(ers);
-                reject(ers);
-            });
-    });
+models.getData = async ({page, limit, order}) => {
+    try {
+        let query = format('SELECT * FROM tickitz.schedule');
+
+        if (order) {
+            query = format(query + ' ORDER BY schedule_id %s', order);
+        }
+
+        if (page && limit) {
+            const offset = (page - 1) * limit;
+            query = format(query + ' LIMIT %s OFFSET %s', limit, offset);
+        }
+
+        const { rows } = await db.query('SELECT COUNT(schedule_id) as "count" FROM tickitz.schedule');
+        const counts = rows[0].count;
+
+        const meta = {
+            next:
+                page == Math.ceil(counts / limit)
+                    ? null
+                    : `http://localhost:8080/api/v1/schedules/all?order=${order}&page=${Number(page) + 1}&limit=${limit}`,
+            prev:
+                page == 1
+                    ? null
+                    : `http://localhost:8080/api/v1/schedules/all?order=${order}&page=${Number(page) - 1}&limit=${limit}`,
+            counts
+        };
+
+        const prods = await db.query(query);
+        return { data: prods.rows, meta };
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 models.addData = (id, price, premiere, location, date_start, date_end, time) => {
